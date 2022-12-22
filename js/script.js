@@ -90,3 +90,37 @@ const captions = document.querySelectorAll(".gallery .caption");
 let currentActiveIndex = 0;
 images[currentActiveIndex].classList.add("active");
 captions[currentActiveIndex].classList.add("active");
+
+// aggancio evento al next-button
+nextButton.addEventListener("click", () => {
+  // rimuovo classe active all'oggetto corrente
+  images[currentActiveIndex].classList.remove("active");
+  captions[currentActiveIndex].classList.remove("active");
+
+  // incremento l'indice
+  currentActiveIndex++;
+
+  // se sono alla fine, riparto
+  if (currentActiveIndex === images.length) currentActiveIndex = 0;
+
+  // aggiungo classe active con index incrementato
+  images[currentActiveIndex].classList.add("active");
+  captions[currentActiveIndex].classList.add("active");
+});
+
+// aggancio evento al prev-button
+prevButton.addEventListener("click", () => {
+  // rimuovo classe active all'oggetto corrente
+  images[currentActiveIndex].classList.remove("active");
+  captions[currentActiveIndex].classList.remove("active");
+
+  // decremento l'indice
+  currentActiveIndex--;
+
+  // se sono all'inizio, riparto dalla fine
+  if (currentActiveIndex < 0) currentActiveIndex = 5 - 1;
+
+  // aggiungo classe active con index incrementato
+  images[currentActiveIndex].classList.add("active");
+  captions[currentActiveIndex].classList.add("active");
+});
