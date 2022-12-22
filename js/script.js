@@ -59,3 +59,34 @@ const data = [
     text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
   },
 ];
+
+// prendo gli elementi dal DOM
+// galleria
+const gallery = document.querySelector("#carousel .gallery");
+// bottoni
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+
+// creo ciclo per stampare le immagini e i testi
+let imageElements = "";
+data.forEach((game) => {
+  imageElements += `<img src="${game.image}" alt="${game.title}" />
+  <div class="caption text-white">
+    <h3>${game.title}</h3>
+    <p>${game.text}</p>
+  </div>`;
+});
+
+gallery.innerHTML = imageElements;
+
+// recupero le immagini
+const images = document.querySelectorAll(".gallery img");
+
+// recupero la caption
+const captions = document.querySelectorAll(".gallery .caption");
+
+// setto il primo oggetto come attivo
+
+let currentActiveIndex = 0;
+images[currentActiveIndex].classList.add("active");
+captions[currentActiveIndex].classList.add("active");

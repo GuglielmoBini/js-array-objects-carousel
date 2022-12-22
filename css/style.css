@@ -18,7 +18,12 @@
   display: none;
 }
 
-.gallery img.active {
+.gallery .caption {
+  display: none;
+}
+
+.gallery img.active,
+.gallery .caption.active {
   display: block;
 }
 
@@ -26,6 +31,11 @@
   position: absolute;
   bottom: 0;
   left: 15px;
+}
+
+.caption h3,
+.caption p {
+  text-shadow: 0 0 5px black;
 }
 
 /* BUTTONS */
