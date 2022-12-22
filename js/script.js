@@ -60,6 +60,42 @@ const data = [
   },
 ];
 
+// ***** FUNZIONI *****
+
+// creo funzione per creare un immagine e i suoi testi
+const createImgText = (image, title, text) => {
+  const card = `<img src="${image}" alt="${title}" />
+      <div class="caption text-white">
+        <h3>${title}</h3>
+        <p>${text}</p>
+      </div>`;
+  return card;
+};
+
+// creo funzione per gestire il cambio di index
+const changePic = (target) => {
+  // rimuovo classe active all'oggetto corrente
+  images[currentActiveIndex].classList.remove("active");
+  captions[currentActiveIndex].classList.remove("active");
+
+  if (target === "next") {
+    // incremento l'indice
+    currentActiveIndex++;
+    // se sono alla fine, riparto
+    if (currentActiveIndex === images.length) currentActiveIndex = 0;
+  } else if (target === "prev") {
+    // decremento l'indice
+    currentActiveIndex--;
+    // se sono all'inizio, riparto dalla fine
+    if (currentActiveIndex < 0) currentActiveIndex = images.length - 1;
+  }
+
+  // aggiungo classe active con index incrementato
+  images[currentActiveIndex].classList.add("active");
+  captions[currentActiveIndex].classList.add("active");
+};
+
+// ***** FASE PREPARATORIA *****
 // prendo gli elementi dal DOM
 // galleria
 const gallery = document.querySelector("#carousel .gallery");
@@ -67,26 +103,21 @@ const gallery = document.querySelector("#carousel .gallery");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 
+// ***** ESECUZIONE ESERCIZIO *****
+
 // creo ciclo per stampare le immagini e i testi
 let imageElements = "";
 data.forEach((game) => {
-  imageElements += `<img src="${game.image}" alt="${game.title}" />
-  <div class="caption text-white">
-    <h3>${game.title}</h3>
-    <p>${game.text}</p>
-  </div>`;
+  imageElements += createImgText(game.image, game.title, game.text);
 });
-
 gallery.innerHTML = imageElements;
 
 // recupero le immagini
 const images = document.querySelectorAll(".gallery img");
-
 // recupero la caption
 const captions = document.querySelectorAll(".gallery .caption");
 
 // setto il primo oggetto come attivo
-
 let currentActiveIndex = 0;
 images[currentActiveIndex].classList.add("active");
 captions[currentActiveIndex].classList.add("active");
@@ -94,33 +125,10 @@ captions[currentActiveIndex].classList.add("active");
 // aggancio evento al next-button
 nextButton.addEventListener("click", () => {
   // rimuovo classe active all'oggetto corrente
-  images[currentActiveIndex].classList.remove("active");
-  captions[currentActiveIndex].classList.remove("active");
-
-  // incremento l'indice
-  currentActiveIndex++;
-
-  // se sono alla fine, riparto
-  if (currentActiveIndex === images.length) currentActiveIndex = 0;
-
-  // aggiungo classe active con index incrementato
-  images[currentActiveIndex].classList.add("active");
-  captions[currentActiveIndex].classList.add("active");
+  changePic("next");
 });
 
 // aggancio evento al prev-button
 prevButton.addEventListener("click", () => {
-  // rimuovo classe active all'oggetto corrente
-  images[currentActiveIndex].classList.remove("active");
-  captions[currentActiveIndex].classList.remove("active");
-
-  // decremento l'indice
-  currentActiveIndex--;
-
-  // se sono all'inizio, riparto dalla fine
-  if (currentActiveIndex < 0) currentActiveIndex = 5 - 1;
-
-  // aggiungo classe active con index incrementato
-  images[currentActiveIndex].classList.add("active");
-  captions[currentActiveIndex].classList.add("active");
+  changePic("prev");
 });
